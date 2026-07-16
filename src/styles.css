@@ -1,1 +1,286 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+
+/* Import modern typography from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg-color: #0c0f17;
+  --card-bg: rgba(20, 24, 38, 0.65);
+  --border-color: rgba(255, 193, 7, 0.15);
+  --accent-color: #ffc107;
+  --accent-glow: rgba(255, 193, 7, 0.4);
+  --danger-color: #ff3e3e;
+  --danger-glow: rgba(255, 62, 62, 0.4);
+  --text-primary: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-light-muted: #d1d5db;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 193, 7, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 62, 62, 0.04) 0%, transparent 40%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--accent-glow);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--accent-glow);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes rotateEmoji {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse {
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Navbar */
+.app-navbar {
+  background: rgba(12, 15, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-ball {
+  display: inline-block;
+  font-size: 1.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.logo-text {
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Text glow */
+.glow-text {
+  color: var(--accent-color);
+  font-weight: 700;
+  text-shadow: 0 0 10px var(--accent-glow);
+  letter-spacing: 3px;
+}
+
+/* Search bar styling */
+.search-box {
+  background: rgba(20, 24, 38, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.search-box input {
+  border: none;
+  box-shadow: none;
+  font-size: 1.05rem;
+  padding: 0.8rem 1.2rem;
+}
+
+.search-box input::placeholder {
+  color: #6b7280;
+}
+
+.search-box input:focus {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+/* Error card */
+.error-card {
+  background: rgba(255, 62, 62, 0.05);
+  border: 1px solid rgba(255, 62, 62, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.glow-button {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #ff9800 100%);
+  border: none;
+  color: #000;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.glow-button:hover {
+  box-shadow: 0 0 15px var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* Character card */
+.character-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.character-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 193, 7, 0.4);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 193, 7, 0.1);
+}
+
+.card-img-wrapper {
+  background: linear-gradient(180deg, rgba(255, 193, 7, 0.03) 0%, rgba(20, 24, 38, 0.5) 100%);
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 193, 7, 0.05);
+}
+
+.character-img {
+  max-height: 90%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+}
+
+.character-card:hover .character-img {
+  transform: scale(1.08) translateY(-5px);
+  filter: drop-shadow(0 10px 25px rgba(255, 193, 7, 0.35));
+}
+
+.race-badge {
+  background: rgba(255, 193, 7, 0.15);
+  color: var(--accent-color);
+  border: 1px solid var(--border-color);
+  padding: 0.4em 0.8em;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.text-truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.6;
+}
+
+.ki-stats {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 12px;
+}
+
+.detail-btn {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.detail-btn:hover {
+  background: var(--accent-color);
+  color: #000;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Detail Card */
+.detail-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.detail-img-container {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.04) 0%, rgba(255, 62, 62, 0.02) 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.character-detail-img {
+  max-height: 400px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(255, 193, 7, 0.3));
+  animation: float 4s ease-in-out infinite;
+}
+
+.detail-title {
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.race-detail-badge {
+  background: rgba(255, 193, 7, 0.2);
+  color: var(--accent-color);
+  border: 1px solid rgba(255, 193, 7, 0.4);
+  padding: 0.5em 1em;
+  font-size: 0.95rem;
+  border-radius: 10px;
+}
+
+.text-light-muted {
+  color: var(--text-light-muted);
+}
+
+.ki-info-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.ki-info-box:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-color);
+}

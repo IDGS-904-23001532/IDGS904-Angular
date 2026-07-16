@@ -17,9 +17,15 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
+    "@tailwindcss/postcss": "^4.3.2",
     "bootstrap": "5.3.8",
+    "flowbite": "^4.0.2",
+    "font-awesome": "^4.7.0",
+    "postcss": "^8.5.19",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tailwindcss": "^4.3.2",
+    "tslib": "^2.3.0",
+    "zone.js": "^0.16.2"
   },
   "devDependencies": {
     "@angular/build": "^22.0.1",

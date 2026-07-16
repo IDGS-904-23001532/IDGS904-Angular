@@ -1,0 +1,80 @@
+<div class="container mx-auto py-8 px-4">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-12 flex flex-col items-center justify-center">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-400"></div>
+    <p class="text-amber-400 mt-4 animate-pulse">Cargando detalles del guerrero...</p>
+  </div>
+
+  <!-- Error State (Manejo de errores) -->
+  <div *ngIf="error" class="bg-red-950/20 border border-red-500/20 text-center p-8 mx-auto max-w-2xl rounded-2xl backdrop-blur-md">
+    <div class="mb-4">
+      <i class="fa fa-exclamation-triangle text-red-500 text-5xl"></i>
+    </div>
+    <h3 class="text-white text-xl font-semibold mb-3">¡No pudimos cargar la información!</h3>
+    <p class="text-gray-400 mb-6">{{ error }}</p>
+    <button class="inline-flex items-center text-gray-900 bg-amber-400 hover:bg-amber-500 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors focus:ring-4 focus:ring-amber-300 focus:outline-none" (click)="goBack()">
+      <i class="fa fa-arrow-left mr-2"></i>Volver a la lista
+    </button>
+  </div>
+
+  <!-- Character Details Page -->
+  <div *ngIf="!loading && !error && character" class="bg-slate-900/80 border border-slate-800 rounded-3xl mx-auto max-w-5xl shadow-xl overflow-hidden animate-fade-in">
+    <div class="flex flex-col md:flex-row">
+      <!-- Image side -->
+      <div class="md:w-5/12 flex items-center justify-center p-8 bg-gray-900/20 border-r border-gray-800/10">
+        <img [src]="character.image" [alt]="character.name" class="character-detail-img max-h-96 object-contain transition-transform duration-500 hover:scale-105" />
+      </div>
+      
+      <!-- Info side -->
+      <div class="md:w-7/12 p-8 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <h1 class="text-amber-400 text-3xl font-extrabold tracking-wide uppercase">{{ character.name }}</h1>
+            <span class="inline-flex items-center bg-amber-400/15 border border-amber-400/30 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full">{{ character.race }}</span>
+          </div>
+          
+          <div class="flex gap-4 mb-6 text-gray-400 text-sm">
+            <span><i class="fa fa-venus-mars text-amber-400 mr-1"></i> Género: {{ character.gender }}</span>
+          </div>
+
+          <h5 class="text-white font-semibold text-lg mb-3">Historia / Descripción</h5>
+          <p class="text-gray-300 leading-relaxed mb-6">{{ character.description || 'Este personaje aún no tiene una descripción registrada.' }}</p>
+          
+          <h5 class="text-white font-semibold text-lg mb-3">Poder de Pelea (Ki)</h5>
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="bg-gray-800/20 border border-gray-700/20 p-4 rounded-xl hover:bg-gray-800/40 transition-colors">
+              <span class="text-gray-400 block text-xs mb-1">Ki Base</span>
+              <span class="text-amber-400 text-xl font-bold">{{ character.ki }}</span>
+            </div>
+            <div class="bg-gray-800/20 border border-gray-700/20 p-4 rounded-xl hover:bg-gray-800/40 transition-colors">
+              <span class="text-gray-400 block text-xs mb-1">Ki Máximo</span>
+              <span class="text-red-400 text-xl font-bold">{{ character.maxKi }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-gray-800/30">
+          <button class="inline-flex items-center text-gray-900 bg-amber-400 hover:bg-amber-500 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors focus:ring-4 focus:ring-amber-300 focus:outline-none" (click)="goBack()">
+            <i class="fa fa-arrow-left mr-2"></i>Volver a la lista
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Transformaciones -->
+    <div *ngIf="character.transformations && character.transformations.length > 0" class="border-t border-slate-800/80 p-8 bg-slate-950/20">
+      <h3 class="text-white font-extrabold text-xl mb-6 flex items-center tracking-wide uppercase">
+        <i class="fa fa-fire text-amber-400 mr-2.5 animate-pulse"></i> Transformaciones
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div *ngFor="let trans of character.transformations" class="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 flex flex-col items-center text-center hover:border-amber-400/40 transition-all duration-300 group">
+          <div class="h-44 w-full flex items-center justify-center mb-4 bg-gray-900/10 rounded-xl p-2">
+            <img [src]="trans.image" [alt]="trans.name" class="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <h4 class="text-white font-bold text-sm mb-1.5 group-hover:text-amber-400 transition-colors">{{ trans.name }}</h4>
+          <span class="text-amber-400 text-xs font-semibold">Ki: {{ trans.ki }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
